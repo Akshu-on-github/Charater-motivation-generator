@@ -1,0 +1,55 @@
+<html>
+
+    <head>
+        <title>Character Motivations Generator</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://raw.githack.com/brython-dev/brython/master/www/src/brython.js"></script>
+        <script src="https://raw.githack.com/brython-dev/brython/master/www/src/brython_stdlib.js"></script>
+    </head>
+
+    <body onload="brython()">
+
+        <script type="text/python">
+        from browser import document, html
+
+        def generate_prompt(event):
+            selected = {"Fantasy":0, "Mystery":0, "Action":0, "Drama"0, "Comedy":0}
+
+            if document["Fantasy"].value:
+                selected["Fantasy"] = 1
+                prompt_list = open('Fantasy_prompts.txt').read().splitlines()
+                prompt = prompt_list[random.randint(0, len(prompt_list))]
+                prompt_list.close()
+            if document["Mystery"].value:
+                selected["Mystery"] = 1
+                prompt_list = open('Fantasy_prompts.txt').read().splitlines()
+                prompt = ' and ' + prompt_list[random.randint(0, len(prompt_list))]
+                prompt_list.close()
+            if document["Action"].value:
+                selected["Action"] = 1
+            if document["Drama"].value:
+                selected["Drama"] = 1
+            if document["Comedy"].value:
+                selected["Comedy"] = 1
+
+            document["Output"].clear()
+            document['output'].text = 'Your character did it because '.join(prompt)
+
+        document["Submit"].bind("click", generate_prompt)
+        </script>
+
+        <input type="checkbox" id="Fantasy">Fantasy</input>
+        <input type="checkbox" id="Mystery">Mystery</input>
+        <input type="checkbox" id="Action">Action</input>
+        <input type="checkbox" id="Drama">Drama</input>
+        <input type="checkbox" id="Comedy">Comedy</input>
+        <button id="Random">Random</button>
+        <button id="Submit">Submit</button>
+
+        <div style="margin-top: 2%;">
+            <div id="Output"></div>
+        </div>
+
+    </body>
+
+</html>
